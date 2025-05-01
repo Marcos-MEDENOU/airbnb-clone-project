@@ -16,3 +16,17 @@ Oversees the entire project life cycle. Coordinates the team, manages timelines 
 
 ## DevOps Engineer
 Automates deployment, monitors infrastructure, and manages CI/CD pipelines. Ensures scalability, performance, and system reliability throughout the development cycle.
+
+
+# Technology Stack
+## Django
+A high-level Python web framework used to build robust, scalable, and secure web applications. It handles the server-side logic, routing, and RESTful API development.
+
+## PostgreSQL
+An open-source relational database management system (RDBMS) used to store and manage application data. Known for its performance, reliability, and advanced querying features.
+
+## GraphQL
+A query language for APIs that allows clients to request exactly the data they need. Used to improve efficiency and flexibility in data fetching between the frontend and backend.
+
+## Docker
+A containerization tool that packages the application and its dependencies into isolated environments, making deployment and scaling more consistent and efficient.
