@@ -30,3 +30,101 @@ A query language for APIs that allows clients to request exactly the data they n
 
 ## Docker
 A containerization tool that packages the application and its dependencies into isolated environments, making deployment and scaling more consistent and efficient.
+
+# Database Design
+The Airbnb Clone Project is structured around a relational database schema designed to reflect real-world interactions on a booking platform. Below is a high-level overview of the core entities, their attributes, and how they interconnect to form a functional, scalable system.
+
+## Users
+Represents both hosts and guests using the platform.
+
+Field	Type	Description
+id	Integer	Primary key
+full_name	String	User's full name
+email	String	Unique email address
+password_hash	String	Encrypted password
+role	Enum	Either "host", "guest", or both
+
+### Relationships:
+
+One user can own multiple properties.
+
+One user can create multiple bookings.
+
+One user can write multiple reviews.
+
+One user can make multiple payments.
+
+## Properties
+Represents listings created by hosts.
+
+Field	Type	Description
+id	Integer	Primary key
+owner_id	Integer	Foreign key → Users.id
+title	String	Property listing title
+description	Text	Detailed property description
+price_per_night	Decimal	Nightly rate
+address	String	Physical address of the property
+
+### Relationships:
+
+One property is owned by one user.
+
+One property can have many bookings and reviews.
+
+## Bookings
+Manages reservation data between guests and properties.
+
+Field	Type	Description
+id	Integer	Primary key
+user_id	Integer	Foreign key → Users.id (guest)
+property_id	Integer	Foreign key → Properties.id
+start_date	Date	Start date of the booking
+end_date	Date	End date of the booking
+status	Enum	Status (e.g., pending, confirmed)
+
+### Relationships:
+
+One booking is made by one user for one property.
+
+One booking may have one payment.
+
+## Reviews
+Captures feedback from guests about properties.
+
+Field	Type	Description
+id	Integer	Primary key
+user_id	Integer	Foreign key → Users.id
+property_id	Integer	Foreign key → Properties.id
+rating	Integer	Rating (1 to 5)
+comment	Text	Optional review content
+
+### Relationships:
+
+A review is written by one user for one property.
+
+## Payments
+Logs financial transactions related to bookings.
+
+Field	Type	Description
+id	Integer	Primary key
+booking_id	Integer	Foreign key → Bookings.id
+amount	Decimal	Payment amount
+method	String	Payment method (e.g., card, PayPal)
+status	Enum	(e.g., completed, failed, refunded)
+
+### Relationships:
+
+One payment is associated with one booking.
+
+### Entity Relationship Summary
+User ⟶ (1:N) ⟶ Properties
+
+User ⟶ (1:N) ⟶ Bookings
+
+User ⟶ (1:N) ⟶ Reviews
+
+Property ⟶ (1:N) ⟶ Bookings
+
+Property ⟶ (1:N) ⟶ Reviews
+
+Booking ⟶ (1:1) ⟶ Payment
